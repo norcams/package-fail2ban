@@ -2,8 +2,8 @@ class Fail2ban < FPM::Cookery::Recipe
   description 'Daemon to ban hosts that cause multiple authentication errors'
 
   name     'fail2ban'
-  version  '0.9.0'
-  revision '3'
+  version  '0.9.1'
+  revision '4'
 
   homepage 'https://github.com/fail2ban/fail2ban'
   license  'GNU General Public License'
@@ -23,6 +23,7 @@ class Fail2ban < FPM::Cookery::Recipe
   def install
     etc('init.d').install 'files/redhat-initd'
     lib('systemd/system').install 'files/fail2ban.service'
+    var('run/fail2ban').mkdir
     safesystem 'python setup.py install --root=../../tmp-dest --no-compile'
   end
   
